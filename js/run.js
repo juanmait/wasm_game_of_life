@@ -1,5 +1,5 @@
 const CELL_SIZE = 5; // px
-const GRID_COLOR = "#CCCCCC";
+const GRID_COLOR = "#EEEEEE";
 const DEAD_COLOR = "#FFFFFF";
 const ALIVE_COLOR = "#000000";
 
