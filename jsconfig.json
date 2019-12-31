@@ -3,5 +3,5 @@
     "module": "esnext",
     "target": "es6"
   },
-  "include": ["src/**/*"]
+  "include": ["pkg/**/*", "js/**/*"]
 }

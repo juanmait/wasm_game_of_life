@@ -4,16 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "browser-sync --host='rustweb.loc' --port $PORT --server --files=\"src/**/*.mjs,pkg/**/*.js\" --no-open",
-    "build": "wasm-pack build --target web --dev",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "hotelize": "hotel add 'npm start' --name rustweb"
+    "hotelize": "hotel add 'npm start' --name rustweb",
+    "build": "rimraf dist pkg && webpack",
+    "start": "rimraf dist pkg && webpack-dev-server --open -d",
+    "test": "cargo test && wasm-pack test --headless"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^6.8.0",
-    "browser-sync": "^2.26.7"
+    "prettier": "^1.19.1",
+    "@wasm-tool/wasm-pack-plugin": "1.1.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
   }
 }

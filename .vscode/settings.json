@@ -3,6 +3,7 @@
     "bindgen",
     "esnext",
     "hotelize",
+    "repr",
     "wasm"
   ]
 }
