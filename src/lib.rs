@@ -9,7 +9,7 @@ use wasm_bindgen::prelude::*;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-// It is important that we have #[repr(u8)],
+// It is IMPORTANT that we have #[repr(u8)],
 // so that each cell is represented as a single byte
 #[wasm_bindgen]
 #[repr(u8)]
@@ -31,10 +31,41 @@ pub struct Universe {
 /// Public methods, exported to JavaScript.
 #[wasm_bindgen]
 impl Universe {
+    pub fn new() -> Universe {
+        let width = 128;
+        let height = 128;
+
+        // Initially, `cells` is a range Struct
+        // a range is an `ExactSizeIterator`
+        // https://doc.rust-lang.org/std/iter/trait.ExactSizeIterator.html
+        // https://doc.rust-lang.org/std/ops/struct.Range.html
+        // https://doc.rust-lang.org/std/iter/trait.Iterator.html#method.collect
+        let cells = (0..width * height)
+            .map(|i| {
+                if i % 2 == 0 || i % 7 == 0 {
+                    Cell::Alive
+                } else {
+                    Cell::Dead
+                }
+            })
+            .collect();
+
+        Universe {
+            width,
+            height,
+            cells,
+        }
+    }
+
+    /// Find the array index of the cell at a given row and column
+    /// in the universe.
+    /// Rows and columns start at 0.
     fn get_index(&self, row: u32, column: u32) -> usize {
         (row * self.width + column) as usize
     }
 
+    /// The live_neighbor_count method uses deltas and modulo to avoid
+    /// special casing the edges of the universe with `if`s.
     fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
         let mut count = 0;
         for delta_row in [self.height - 1, 0, 1].iter().cloned() {
@@ -83,27 +114,6 @@ impl Universe {
         }
 
         self.cells = next;
-    }
-
-    pub fn new() -> Universe {
-        let width = 128;
-        let height = 128;
-
-        let cells = (0..width * height)
-            .map(|i| {
-                if i % 2 == 0 || i % 7 == 0 {
-                    Cell::Alive
-                } else {
-                    Cell::Dead
-                }
-            })
-            .collect();
-
-        Universe {
-            width,
-            height,
-            cells,
-        }
     }
 
     pub fn render(&self) -> String {
