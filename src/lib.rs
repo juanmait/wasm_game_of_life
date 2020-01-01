@@ -1,6 +1,8 @@
 extern crate fixedbitset;
 
+mod util;
 use fixedbitset::FixedBitSet;
+use util::set_panic_hook;
 use wasm_bindgen::prelude::*;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
@@ -32,6 +34,8 @@ pub struct Universe {
 #[wasm_bindgen]
 impl Universe {
     pub fn new() -> Universe {
+        set_panic_hook();
+
         let width = 64;
         let height = 64;
         let size = (width * height) as usize;
