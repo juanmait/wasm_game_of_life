@@ -1,9 +1,7 @@
 extern crate fixedbitset;
 
-// mod util;
 use fixedbitset::FixedBitSet;
 use wasm_bindgen::prelude::*;
-// use web_sys::console;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
