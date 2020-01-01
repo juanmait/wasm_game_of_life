@@ -22,7 +22,6 @@ module.exports = {
     allowedHosts: [
       '.rustweb.loc',
     ],
-    // host: 'rustweb.loc'
   },
   plugins: [
     new CopyPlugin([

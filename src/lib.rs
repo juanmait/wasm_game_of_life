@@ -1,5 +1,5 @@
 extern crate fixedbitset;
-
+extern crate web_sys;
 mod util;
 use fixedbitset::FixedBitSet;
 use util::set_panic_hook;
@@ -35,6 +35,7 @@ pub struct Universe {
 impl Universe {
     pub fn new() -> Universe {
         set_panic_hook();
+        web_sys::console::log_1(&"Creating a new Universe".into());
 
         let width = 64;
         let height = 64;

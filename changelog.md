@@ -1,5 +1,6 @@
 # 2020-01-01
 
+- add example usage of `web_sys::console::log_1`
 - add `set_panic_hook` for better errors in javascript
 - add a `kill_all` method to fix tests
 - add test for the `Universe`.
