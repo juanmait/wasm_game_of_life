@@ -34,12 +34,10 @@ pub struct Universe {
 #[wasm_bindgen]
 impl Universe {
     pub fn new() -> Universe {
-        let width = 128;
-        let height = 128;
-
+        let width = 64;
+        let height = 64;
         let size = (width * height) as usize;
         let mut cells = FixedBitSet::with_capacity(size);
-
         for i in 0..size {
             cells.set(i, i % 2 == 0 || i % 7 == 0);
         }
@@ -49,6 +47,26 @@ impl Universe {
             height,
             cells,
         }
+    }
+
+    fn construct_cells(&mut self) -> FixedBitSet {
+        let size = (self.width * self.height) as usize;
+        let mut cells = FixedBitSet::with_capacity(size);
+        for i in 0..size {
+            cells.set(i, i % 2 == 0 || i % 7 == 0);
+        }
+
+        cells
+    }
+
+    pub fn set_width(&mut self, width: u32) {
+        self.width = width;
+        self.construct_cells();
+    }
+
+    pub fn set_height(&mut self, height: u32) {
+        self.height = height;
+        self.construct_cells();
     }
 
     /// Find the array index of the cell at a given row and column
@@ -123,6 +141,26 @@ impl Universe {
     // convert the slice to a pointer:
     pub fn cells(&self) -> *const u32 {
         self.cells.as_slice().as_ptr()
+    }
+}
+
+/// Public methods for testing (not exposed to javascript)
+impl Universe {
+    pub fn get_cells(&self) -> &FixedBitSet {
+        &self.cells
+    }
+
+    /// Set cells to be alive in a universe by passing the row and column
+    /// of each cell as an array.
+    pub fn set_cells(&mut self, cells: &[(u32, u32)]) {
+        let mut next = self.cells.clone();
+
+        for (row, col) in cells.iter().cloned() {
+            let idx = self.get_index(row, col);
+            next.set(idx, true);
+        }
+
+        self.cells = next;
     }
 }
 

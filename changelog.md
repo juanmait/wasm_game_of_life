@@ -1,3 +1,7 @@
+# 2020-01-01
+
+- add test for the `Universe`.
+
 # 2019-12-31
 
 - represent cells as bits instead of bytes

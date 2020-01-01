@@ -1,5 +1,5 @@
 [package]
-name = 'hello_world'
+name = 'wasm_game_of_life'
 version = '0.1.0'
 authors = ['The wasm-bindgen Developers']
 edition = '2018'
@@ -9,6 +9,8 @@ crate-type = [
     'cdylib',
     'rlib',
 ]
+[profile.release]
+lto = true
 
 [features]
 default = ['console_error_panic_hook']
@@ -28,3 +30,9 @@ features = ['console']
 [target."cfg(debug_assertions)".dependencies.console_error_panic_hook]
 version = '0.1.6'
 optional = true
+
+[dev-dependencies]
+wasm-bindgen-test = '0.3.6'
+futures = '0.3.1'
+js-sys = '0.3.33'
+wasm-bindgen-futures = '0.4.6'
