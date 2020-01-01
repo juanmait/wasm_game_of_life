@@ -1,5 +1,6 @@
 # 2020-01-01
 
+- add a `kill_all` method to fix tests
 - add test for the `Universe`.
 
 # 2019-12-31

@@ -38,6 +38,8 @@ impl Universe {
         let height = 64;
         let size = (width * height) as usize;
         let mut cells = FixedBitSet::with_capacity(size);
+
+        // construct the initial cells state
         for i in 0..size {
             cells.set(i, i % 2 == 0 || i % 7 == 0);
         }
@@ -161,6 +163,14 @@ impl Universe {
         }
 
         self.cells = next;
+    }
+
+    /// kill all the cells
+    pub fn kill_all(&mut self) {
+        let size = (self.width * self.height) as usize;
+        let cells = FixedBitSet::with_capacity(size);
+
+        self.cells = cells;
     }
 }
 
