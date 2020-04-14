@@ -5,6 +5,13 @@ use fixedbitset::FixedBitSet;
 use util::set_panic_hook;
 use wasm_bindgen::prelude::*;
 
+// A macro to provide `println!(..)`-style syntax for `console.log` logging.
+macro_rules! log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )* ).into());
+    }
+}
+
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
 #[cfg(feature = "wee_alloc")]
@@ -34,11 +41,12 @@ pub struct Universe {
 #[wasm_bindgen]
 impl Universe {
     pub fn new() -> Universe {
+        // Enable Logging for Panics
         set_panic_hook();
-        web_sys::console::log_1(&"Creating a new Universe".into());
+        log!("Creating a new Universe");
 
-        let width = 64;
-        let height = 64;
+        let width = 16;
+        let height = 16;
         let size = (width * height) as usize;
         let mut cells = FixedBitSet::with_capacity(size);
 
@@ -120,6 +128,15 @@ impl Universe {
                 let cell = self.cells[idx];
                 let live_neighbors = self.live_neighbor_count(row, col);
 
+                // enable only when debug every tick
+                // log!(
+                //     "cell[{}, {}] is initially {:?} and has {} live neighbors",
+                //     row,
+                //     col,
+                //     cell,
+                //     live_neighbors
+                // );
+
                 // To update a cell in the next tick of the universe,
                 // we use the set method of FixedBitSet
                 next.set(
@@ -156,6 +173,7 @@ impl Universe {
 
 /// Public methods for testing (not exposed to javascript)
 impl Universe {
+    /// Get the dead and alive values of the entire universe.
     pub fn get_cells(&self) -> &FixedBitSet {
         &self.cells
     }

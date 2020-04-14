@@ -1,5 +1,7 @@
 # 2020-04-13
 
+- add play/pause button.
+- add `log` macro.
 - upgrade all cargo dependencies.
 - fix feature format in Cargo.toml.
 

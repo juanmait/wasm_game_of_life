@@ -77,16 +77,40 @@ export const run = async ({ Universe, Cell }, memory) => {
     ctx.stroke();
   };
 
-  const renderLoop = () => {
-    universe.tick();
+  let animationId = null;
 
-    drawGrid();
-    drawCells();
-
-    setTimeout(() => {
-      requestAnimationFrame(renderLoop);
-    }, 50);
+  const isPaused = () => {
+    return animationId === null;
   };
 
-  requestAnimationFrame(renderLoop);
+  const playPauseButton = document.getElementById("play-pause");
+
+  playPauseButton.textContent = "▶";
+
+  const play = () => {
+    playPauseButton.textContent = "⏸";
+    renderLoop();
+  };
+
+  const pause = () => {
+    playPauseButton.textContent = "▶";
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  };
+
+  playPauseButton.addEventListener("click", event => {
+    if (isPaused()) {
+      play();
+    } else {
+      pause();
+    }
+  });
+
+  const renderLoop = () => {
+    drawGrid();
+    drawCells();
+    universe.tick();
+    // debugger;
+    animationId = requestAnimationFrame(renderLoop);
+  };
 };

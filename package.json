@@ -7,7 +7,7 @@
     "hotelize": "hotel add 'npm start' --name rustweb",
     "build": "rimraf dist pkg && webpack",
     "start": "rimraf dist pkg && webpack-dev-server --open -d",
-    "test": "cargo test && wasm-pack test --headless",
+    "test": "cargo test && wasm-pack test --firefox --headless",
     "test-universe": "wasm-pack test --firefox --headless"
   },
   "keywords": [],
