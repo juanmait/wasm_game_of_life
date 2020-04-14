@@ -1,5 +1,6 @@
 # 2020-04-13
 
+- add click interaction.
 - add play/pause button.
 - add `log` macro.
 - upgrade all cargo dependencies.
