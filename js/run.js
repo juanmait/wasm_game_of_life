@@ -1,4 +1,4 @@
-const CELL_SIZE = 5; // px
+const CELL_SIZE = 15; // px
 const GRID_COLOR = "#EEEEEE";
 const DEAD_COLOR = "#FFFFFF";
 const ALIVE_COLOR = "#000000";
@@ -76,6 +76,24 @@ export const run = async ({ Universe, Cell }, memory) => {
 
     ctx.stroke();
   };
+
+  canvas.addEventListener("click", event => {
+    const boundingRect = canvas.getBoundingClientRect();
+
+    const scaleX = canvas.width / boundingRect.width;
+    const scaleY = canvas.height / boundingRect.height;
+
+    const canvasLeft = (event.clientX - boundingRect.left) * scaleX;
+    const canvasTop = (event.clientY - boundingRect.top) * scaleY;
+
+    const row = Math.min(Math.floor(canvasTop / (CELL_SIZE + 1)), height - 1);
+    const col = Math.min(Math.floor(canvasLeft / (CELL_SIZE + 1)), width - 1);
+
+    universe.toggle_cell(row, col);
+
+    drawGrid();
+    drawCells();
+  });
 
   let animationId = null;
 

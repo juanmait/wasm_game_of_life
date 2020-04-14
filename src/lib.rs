@@ -18,16 +18,6 @@ macro_rules! log {
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
-// It is IMPORTANT that we have #[repr(u8)],
-// so that each cell is represented as a single byte
-#[wasm_bindgen]
-#[repr(u8)]
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum Cell {
-    Dead = 0,
-    Alive = 1,
-}
-
 // The universe has a width and a height, and
 // a vector of cells of length width * height
 #[wasm_bindgen]
@@ -45,8 +35,8 @@ impl Universe {
         set_panic_hook();
         log!("Creating a new Universe");
 
-        let width = 16;
-        let height = 16;
+        let width = 36;
+        let height = 36;
         let size = (width * height) as usize;
         let mut cells = FixedBitSet::with_capacity(size);
 
@@ -168,6 +158,13 @@ impl Universe {
     // convert the slice to a pointer:
     pub fn cells(&self) -> *const u32 {
         self.cells.as_slice().as_ptr()
+    }
+
+    /// toggle the value of the cell in the given
+    /// coordinates
+    pub fn toggle_cell(&mut self, row: u32, column: u32){
+        let idx = self.get_index(row, column);
+        self.cells.toggle(idx);
     }
 }
 
