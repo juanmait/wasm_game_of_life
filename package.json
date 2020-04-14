@@ -1,6 +1,6 @@
 {
-  "name": "rust_web",
-  "version": "1.0.0",
+  "name": "wasm_game_of_life",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {

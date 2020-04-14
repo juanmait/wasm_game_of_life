@@ -1,3 +1,8 @@
+# 2020-04-13
+
+- upgrade all cargo dependencies.
+- fix feature format in Cargo.toml.
+
 # 2020-01-01
 
 - add example usage of `web_sys::console::log_1`

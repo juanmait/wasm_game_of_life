@@ -44,6 +44,7 @@ impl Universe {
 
         // construct the initial cells state
         for i in 0..size {
+            // https://docs.rs/fixedbitset/0.2.0/fixedbitset/struct.FixedBitSet.html#method.set
             cells.set(i, i % 2 == 0 || i % 7 == 0);
         }
 
@@ -112,6 +113,10 @@ impl Universe {
         for row in 0..self.height {
             for col in 0..self.width {
                 let idx = self.get_index(row, col);
+
+                // cells can be accessed by using contains or using
+                // the index syntax.
+                // https://docs.rs/fixedbitset/0.2.0/fixedbitset/struct.FixedBitSet.html#method.contains
                 let cell = self.cells[idx];
                 let live_neighbors = self.live_neighbor_count(row, col);
 
