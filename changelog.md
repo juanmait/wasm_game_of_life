@@ -1,3 +1,8 @@
+# 2023-09-23
+
+- rename project to `wasm_game_of_life`
+- update readme
+
 # 2020-04-13
 
 - add click interaction.
